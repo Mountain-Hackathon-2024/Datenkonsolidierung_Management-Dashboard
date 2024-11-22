@@ -1,22 +1,28 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import styles from "./Login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e) => {
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("");
-    setSuccessMessage("");
 
-    // Dummy API validation
+    // Dummy-Authentifizierung
     if (email === "connector-api-demo@mews.com" && password === "connector-API-2024") {
-      setSuccessMessage("Login erfolgreich!");
+      // Setze einen Cookie für den Login-Zustand
+      Cookies.set("isLoggedIn", "true", { expires: 1 }); // Cookie läuft in 1 Tag ab
+
+      // Weiterleitung zur Dashboard-Seite
+      router.push("/dashboard");
     } else {
       setErrorMessage("Ungültiger Benutzername oder Passwort.");
     }
@@ -54,7 +60,6 @@ export default function Login() {
             Continue
           </button>
         </form>
-        {successMessage && <p className={styles.success}>{successMessage}</p>}
         {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       </div>
     </div>
