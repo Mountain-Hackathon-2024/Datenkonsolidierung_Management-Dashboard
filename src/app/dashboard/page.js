@@ -7,13 +7,18 @@ import Cookies from "js-cookie";
 export default function Dashboard() {
   const router = useRouter();
 
-  // Prüfe, ob der Benutzer eingeloggt ist
+  // Zustand für die Autorisierung
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
   useEffect(() => {
     const isLoggedIn = Cookies.get("isLoggedIn");
 
     if (!isLoggedIn) {
       // Weiterleitung zur Login-Seite
       router.push("/");
+    } else {
+      // Benutzer ist eingeloggt
+      setIsAuthorized(true);
     }
   }, [router]);
 
@@ -21,23 +26,28 @@ export default function Dashboard() {
   const [currentDashboard, setCurrentDashboard] = useState("ALLGEMEIN");
 
   // Beispiel-Daten für die Tabelle
-  const [data, setData] = useState([
+  const data = [
     { id: 1, username: "dionarifi", email: "dionarifi@example.com", status: "Active" },
     { id: 2, username: "panatzhh", email: "panatzhh@example.com", status: "Pending" },
     { id: 3, username: "user3", email: "user3@example.com", status: "Inactive" },
-  ]);
+  ];
 
   // Funktion, um den Dashboard-Namen zu ändern
   const handleDashboardChange = (name) => {
     setCurrentDashboard(name.toUpperCase());
   };
 
+  // Zeige nichts, solange die Autorisierung geprüft wird
+  if (!isAuthorized) {
+    return null;
+  }
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Header */}
       <header style={headerStyle}>
         <h1 style={dashboardNameStyle}>{currentDashboard}</h1>
-        <div style={buttonContainerStyle}>
+        <nav style={buttonContainerStyle}>
           <button style={buttonStyle} onClick={() => handleDashboardChange("Allgemein")}>
             Allgemein
           </button>
@@ -50,7 +60,7 @@ export default function Dashboard() {
           <button style={buttonStyle} onClick={() => handleDashboardChange("Fronalpstock")}>
             Fronalpstock
           </button>
-        </div>
+        </nav>
       </header>
 
       {/* Tabelle */}
