@@ -1,92 +1,80 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import React, { useState } from "react";
+import hotelData from "../data/hotelData";
 
 export default function Dashboard() {
-  const router = useRouter();
+  const [selectedHotel, setSelectedHotel] = useState("allgemein"); // Standardmäßig "Allgemein"
+  const currentData = hotelData[selectedHotel]; // Hole die Daten des aktuellen Hotels
 
-  // Zustand für die Autorisierung
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  // Funktion, um Unterkategorien in einer Tabelle darzustellen
+  const renderCategory = (title, categoryData) => (
+    <React.Fragment key={title}>
+      <tr>
+        <th style={categoryHeaderStyle} colSpan="2">{title}</th>
+      </tr>
+      {Object.entries(categoryData).map(([key, value]) => (
+        <tr key={key}>
+          <td style={cellStyle}>{formatKey(key)}</td>
+          <td style={getValueStyle(value)}>{value}</td>
+        </tr>
+      ))}
+    </React.Fragment>
+  );
 
-  useEffect(() => {
-    const isLoggedIn = Cookies.get("isLoggedIn");
-
-    if (!isLoggedIn) {
-      // Weiterleitung zur Login-Seite
-      router.push("/");
-    } else {
-      // Benutzer ist eingeloggt
-      setIsAuthorized(true);
-    }
-  }, [router]);
-
-  // Zustand für den aktuellen Dashboard-Namen
-  const [currentDashboard, setCurrentDashboard] = useState("ALLGEMEIN");
-
-  // Beispiel-Daten für die Tabelle
-  const data = [
-    { id: 1, username: "dionarifi", email: "dionarifi@example.com", status: "Active" },
-    { id: 2, username: "panatzhh", email: "panatzhh@example.com", status: "Pending" },
-    { id: 3, username: "user3", email: "user3@example.com", status: "Inactive" },
-  ];
-
-  // Funktion, um den Dashboard-Namen zu ändern
-  const handleDashboardChange = (name) => {
-    setCurrentDashboard(name.toUpperCase());
-  };
-
-  // Zeige nichts, solange die Autorisierung geprüft wird
-  if (!isAuthorized) {
-    return null;
-  }
+  // Schlüssel (Key) formatieren (z. B. "gästeImHaus" → "Gäste im Haus")
+  const formatKey = (key) =>
+    key
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Header */}
       <header style={headerStyle}>
-        <h1 style={dashboardNameStyle}>{currentDashboard}</h1>
+        <h1 style={dashboardNameStyle}>{currentData.name}</h1>
         <nav style={buttonContainerStyle}>
-          <button style={buttonStyle} onClick={() => handleDashboardChange("Allgemein")}>
+          <button style={buttonStyle} onClick={() => setSelectedHotel("allgemein")}>
             Allgemein
           </button>
-          <button style={buttonStyle} onClick={() => handleDashboardChange("Stoos Lodge")}>
+          <button style={buttonStyle} onClick={() => setSelectedHotel("stoosLodge")}>
             Stoos Lodge
           </button>
-          <button style={buttonStyle} onClick={() => handleDashboardChange("Wellness Hotel")}>
+          <button style={buttonStyle} onClick={() => setSelectedHotel("wellnessHotel")}>
             Wellness Hotel
           </button>
-          <button style={buttonStyle} onClick={() => handleDashboardChange("Fronalpstock")}>
+          <button style={buttonStyle} onClick={() => setSelectedHotel("fronalpstock")}>
             Fronalpstock
           </button>
         </nav>
       </header>
 
-      {/* Tabelle */}
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+      {/* Tabellen */}
+      <table style={tableStyle}>
         <thead>
-          <tr style={{ backgroundColor: "#007bff", color: "white" }}>
-            <th style={cellStyle}>ID</th>
-            <th style={cellStyle}>Username</th>
-            <th style={cellStyle}>Email</th>
-            <th style={cellStyle}>Status</th>
+          <tr>
+            <th style={headerCellStyle}>Kategorie</th>
+            <th style={headerCellStyle}>Wert</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((row) => (
-            <tr key={row.id} style={{ borderBottom: "1px solid #ddd" }}>
-              <td style={cellStyle}>{row.id}</td>
-              <td style={cellStyle}>{row.username}</td>
-              <td style={cellStyle}>{row.email}</td>
-              <td style={cellStyle}>{row.status}</td>
-            </tr>
-          ))}
+          {/* Render Kategorien */}
+          {renderCategory("Gäste", currentData.gäste)}
+          {renderCategory("Zimmer", currentData.zimmer)}
+          {renderCategory("Umsatz", currentData.umsatz)}
+          {currentData.effizienz && renderCategory("Effizienz", currentData.effizienz)}
+          {currentData.forecast && renderCategory("Forecast", currentData.forecast)}
         </tbody>
       </table>
     </div>
   );
 }
+
+// Funktion für dynamisches Styling basierend auf dem Wert
+const getValueStyle = (value) => ({
+  ...cellStyle,
+  color: value > 0 ? "green" : value < 0 ? "red" : "black",
+});
 
 // Stile
 const headerStyle = {
@@ -118,7 +106,30 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
+const tableStyle = {
+  width: "100%",
+  borderCollapse: "separate",
+  borderSpacing: "0 10px", // Abstand zwischen den Tabellenzeilen
+  marginTop: "20px",
+};
+
+const headerCellStyle = {
+  padding: "10px",
+  backgroundColor: "#007bff",
+  color: "white",
+  textAlign: "left",
+  fontWeight: "bold",
+};
+
+const categoryHeaderStyle = {
+  ...headerCellStyle,
+  backgroundColor: "#0056b3",
+  textAlign: "center",
+};
+
 const cellStyle = {
   padding: "10px",
+  border: "1px solid #ddd",
   textAlign: "left",
+  backgroundColor: "white",
 };
