@@ -1,143 +1,176 @@
 const hotelData = {
-    allgemein: {
-      name: "ALLGEMEIN",
+    gesamt: {
+      name: "Gesamt",
       gäste: {
-        gästeImHaus: 200,
-        erwachsene: 150,
-        kinder: 50,
-        anreisenHeute: 40,
-        abreisenHeute: -10,
+        2024: {
+          gesamt: 1200,
+          erwachsene: 900,
+          kinder: 300,
+          anreisenHeute: 60,
+          abreisenHeute: 50,
+        },
+        2023: {
+          gesamt: 1000,
+          erwachsene: 800,
+          kinder: 200,
+          anreisenHeute: 50,
+          abreisenHeute: 40,
+        },
       },
       zimmer: {
-        totalZimmer: 120,
-        belegteZimmer: 100,
-        freieZimmer: 20,
-        belegungProzent: 83.3,
+        2024: {
+          totalZimmer: 500,
+          belegteZimmer: 350,
+          freieZimmer: 150,
+        },
+        2023: {
+          totalZimmer: 500,
+          belegteZimmer: 300,
+          freieZimmer: 200,
+        },
       },
       umsatz: {
-        brutto: 50000,
-        netto: 45000,
-        proZimmer: 500,
-        proGast: 250,
-      },
-      effizienz: {
-        personalkostenLogis: -20,
-        personalkostenFNB: -15,
-        personalkostenWellness: 10,
-        personalkostenSeminar: 5,
+        2024: {
+          bruttoumsatzTotal: 180000,
+          nettoumsatzTotal: 150000,
+          umsatzProZimmer: 600,
+          umsatzProGast: 180,
+        },
+        2023: {
+          bruttoumsatzTotal: 150000,
+          nettoumsatzTotal: 120000,
+          umsatzProZimmer: 500,
+          umsatzProGast: 150,
+        },
       },
       forecast: {
-        anreisenGästeMorgen: 50,
-        abreisenZimmerMorgen: 20,
-        zimmerBelegungMorgenProzent: 85,
-        pickupZimmernächte: 10,
+        anreisenMorgen: { 2024: 70, 2023: 50 },
+        abreisenMorgen: { 2024: 60, 2023: 40 },
       },
     },
     stoosLodge: {
-      name: "STOOS LODGE",
+      name: "Stoos Lodge",
       gäste: {
-        gästeImHaus: 80,
-        erwachsene: 60,
-        kinder: 20,
-        anreisenHeute: 15,
-        abreisenHeute: -5,
+        2024: {
+          gesamt: 350,
+          erwachsene: 280,
+          kinder: 70,
+        },
+        2023: {
+          gesamt: 300,
+          erwachsene: 250,
+          kinder: 50,
+        },
       },
       zimmer: {
-        totalZimmer: 40,
-        belegteZimmer: 30,
-        freieZimmer: 10,
-        belegungProzent: 75,
+        2024: {
+          totalZimmer: 150,
+          belegteZimmer: 110,
+          freieZimmer: 40,
+        },
+        2023: {
+          totalZimmer: 150,
+          belegteZimmer: 100,
+          freieZimmer: 50,
+        },
       },
       umsatz: {
-        brutto: 15000,
-        netto: 14000,
-        proZimmer: 350,
-        proGast: 200,
+        2024: {
+          bruttoumsatzTotal: 60000,
+          nettoumsatzTotal: 50000,
+        },
+        2023: {
+          bruttoumsatzTotal: 50000,
+          nettoumsatzTotal: 40000,
+        },
+      },
+      forecast: {
+        anreisenMorgen: { 2024: 30, 2023: 20 },
+        abreisenMorgen: { 2024: 25, 2023: 15 },
       },
     },
     wellnessHotel: {
-      name: "WELLNESS HOTEL",
+      name: "Wellness Hotel",
       gäste: {
-        gästeImHaus: 60,
-        erwachsene: 50,
-        kinder: 10,
-        anreisenHeute: 10,
-        abreisenHeute: -3,
+        2024: {
+          gesamt: 450,
+          erwachsene: 350,
+          kinder: 100,
+        },
+        2023: {
+          gesamt: 400,
+          erwachsene: 300,
+          kinder: 100,
+        },
       },
       zimmer: {
-        totalZimmer: 30,
-        belegteZimmer: 20,
-        freieZimmer: 10,
-        belegungProzent: 66.7,
+        2024: {
+          totalZimmer: 200,
+          belegteZimmer: 160,
+          freieZimmer: 40,
+        },
+        2023: {
+          totalZimmer: 200,
+          belegteZimmer: 150,
+          freieZimmer: 50,
+        },
       },
       umsatz: {
-        brutto: 20000,
-        netto: 18000,
-        proZimmer: 600,
-        proGast: 300,
+        2024: {
+          bruttoumsatzTotal: 80000,
+          nettoumsatzTotal: 65000,
+        },
+        2023: {
+          bruttoumsatzTotal: 70000,
+          nettoumsatzTotal: 55000,
+        },
+      },
+      forecast: {
+        anreisenMorgen: { 2024: 35, 2023: 25 },
+        abreisenMorgen: { 2024: 30, 2023: 20 },
       },
     },
     fronalpstock: {
-      name: "FRONALPSTOCK",
+      name: "Fronalpstock",
       gäste: {
-        gästeImHaus: 60,
-        erwachsene: 40,
-        kinder: 20,
-        anreisenHeute: 15,
-        abreisenHeute: -2,
+        2024: {
+          gesamt: 400,
+          erwachsene: 320,
+          kinder: 80,
+        },
+        2023: {
+          gesamt: 300,
+          erwachsene: 250,
+          kinder: 50,
+        },
       },
       zimmer: {
-        totalZimmer: 30,
-        belegteZimmer: 25,
-        freieZimmer: 5,
-        belegungProzent: 83.3,
+        2024: {
+          totalZimmer: 150,
+          belegteZimmer: 130,
+          freieZimmer: 20,
+        },
+        2023: {
+          totalZimmer: 150,
+          belegteZimmer: 100,
+          freieZimmer: 50,
+        },
       },
       umsatz: {
-        brutto: 10000,
-        netto: 9500,
-        proZimmer: 380,
-        proGast: 158,
+        2024: {
+          bruttoumsatzTotal: 70000,
+          nettoumsatzTotal: 60000,
+        },
+        2023: {
+          bruttoumsatzTotal: 50000,
+          nettoumsatzTotal: 45000,
+        },
+      },
+      forecast: {
+        anreisenMorgen: { 2024: 20, 2023: 15 },
+        abreisenMorgen: { 2024: 15, 2023: 10 },
       },
     },
   };
   
   export default hotelData;
-  
-  /* 
-    API-Aufruf (auskommentiert)
-  
-    Später kann diese Funktion genutzt werden, um die Daten aus einer API zu laden 
-    und das `hotelData`-Objekt dynamisch zu ersetzen.
-  
-    Beispiel:
-    
-    export async function fetchHotelData() {
-      try {
-        const response = await fetch('https://api.example.com/hotel-data');
-        if (!response.ok) {
-          throw new Error('Fehler beim Abrufen der Hotel-Daten');
-        }
-        const data = await response.json();
-  
-        // Das zurückgegebene Datenformat sollte mit der Struktur von `hotelData` kompatibel sein
-        return data;
-      } catch (error) {
-        console.error("API Fehler:", error);
-        return null; // Fallback auf statische Daten
-      }
-    }
-  
-    Verwendung in einer Komponente:
-    
-    import { fetchHotelData } from '../data/hotelData';
-  
-    useEffect(() => {
-      async function loadData() {
-        const data = await fetchHotelData();
-        if (data) {
-          setHotelData(data); // Lokaler Zustand oder Context aktualisieren
-        }
-      }
-      loadData();
-    }, []);
-  */
