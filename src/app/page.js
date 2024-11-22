@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import styles from "./Login.module.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -16,12 +15,12 @@ export default function Login() {
     e.preventDefault();
     setErrorMessage("");
 
-    // Dummy-Authentifizierung
+    // Dummy-Login-Daten
     if (email === "connector-api-demo@mews.com" && password === "connector-API-2024") {
-      // Setze einen Cookie für den Login-Zustand
+      // Setze das Cookie für den Login-Zustand
       Cookies.set("isLoggedIn", "true", { expires: 1 }); // Cookie läuft in 1 Tag ab
 
-      // Weiterleitung zur Dashboard-Seite
+      // Weiterleitung zum Dashboard
       router.push("/dashboard");
     } else {
       setErrorMessage("Ungültiger Benutzername oder Passwort.");
@@ -29,39 +28,76 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formWrapper}>
-        <h1 className={styles.title}>Welcome</h1>
-        <p className={styles.subtitle}>Log in to your Mews account</p>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">Email address or username</label>
-            <input
-              type="text"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email or username"
-              required
-            />
-          </div>
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <button type="submit" className={styles.button}>
-            Continue
-          </button>
-        </form>
-        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-      </div>
+    <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h1>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <div style={inputGroupStyle}>
+          <label htmlFor="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            required
+            style={inputStyle}
+          />
+        </div>
+        <div style={inputGroupStyle}>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+            style={inputStyle}
+          />
+        </div>
+        <button type="submit" style={buttonStyle}>
+          Login
+        </button>
+        {errorMessage && <p style={errorStyle}>{errorMessage}</p>}
+      </form>
     </div>
   );
 }
+
+// Stile
+const formStyle = {
+  maxWidth: "400px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+};
+
+const inputGroupStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "5px",
+};
+
+const inputStyle = {
+  padding: "10px",
+  fontSize: "16px",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+};
+
+const buttonStyle = {
+  padding: "10px",
+  fontSize: "16px",
+  fontWeight: "bold",
+  backgroundColor: "#007bff",
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+};
+
+const errorStyle = {
+  color: "red",
+  textAlign: "center",
+};

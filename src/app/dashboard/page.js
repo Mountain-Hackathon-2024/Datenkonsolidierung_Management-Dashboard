@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie"; // Für Login-Zustand
+import Cookies from "js-cookie";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -11,8 +11,8 @@ export default function Dashboard() {
   useEffect(() => {
     const isLoggedIn = Cookies.get("isLoggedIn");
 
-    // Wenn der Benutzer nicht eingeloggt ist, leite ihn zur Login-Seite weiter
     if (!isLoggedIn) {
+      // Weiterleitung zur Login-Seite
       router.push("/");
     }
   }, [router]);
@@ -20,14 +20,14 @@ export default function Dashboard() {
   // Zustand für den aktuellen Dashboard-Namen
   const [currentDashboard, setCurrentDashboard] = useState("ALLGEMEIN");
 
-  // Beispiel-Daten
+  // Beispiel-Daten für die Tabelle
   const [data, setData] = useState([
     { id: 1, username: "dionarifi", email: "dionarifi@example.com", status: "Active" },
     { id: 2, username: "panatzhh", email: "panatzhh@example.com", status: "Pending" },
     { id: 3, username: "user3", email: "user3@example.com", status: "Inactive" },
   ]);
 
-  // Funktion, um den Dashboard-Namen zu ändern und groß zu schreiben
+  // Funktion, um den Dashboard-Namen zu ändern
   const handleDashboardChange = (name) => {
     setCurrentDashboard(name.toUpperCase());
   };
@@ -36,35 +36,18 @@ export default function Dashboard() {
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Header */}
       <header style={headerStyle}>
-        {/* Dashboard-Name oben links */}
-        <div style={nameContainerStyle}>
-          <h1 style={dashboardNameStyle}>{currentDashboard}</h1>
-        </div>
-
-        {/* Buttons oben */}
+        <h1 style={dashboardNameStyle}>{currentDashboard}</h1>
         <div style={buttonContainerStyle}>
-          <button
-            style={buttonStyle}
-            onClick={() => handleDashboardChange("Allgemein")}
-          >
+          <button style={buttonStyle} onClick={() => handleDashboardChange("Allgemein")}>
             Allgemein
           </button>
-          <button
-            style={buttonStyle}
-            onClick={() => handleDashboardChange("Stoos Lodge")}
-          >
+          <button style={buttonStyle} onClick={() => handleDashboardChange("Stoos Lodge")}>
             Stoos Lodge
           </button>
-          <button
-            style={buttonStyle}
-            onClick={() => handleDashboardChange("Wellness Hotel")}
-          >
+          <button style={buttonStyle} onClick={() => handleDashboardChange("Wellness Hotel")}>
             Wellness Hotel
           </button>
-          <button
-            style={buttonStyle}
-            onClick={() => handleDashboardChange("Fronalpstock")}
-          >
+          <button style={buttonStyle} onClick={() => handleDashboardChange("Fronalpstock")}>
             Fronalpstock
           </button>
         </div>
@@ -73,7 +56,7 @@ export default function Dashboard() {
       {/* Tabelle */}
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
         <thead>
-          <tr style={{ backgroundColor: "#007bff", color: "white", textAlign: "left" }}>
+          <tr style={{ backgroundColor: "#007bff", color: "white" }}>
             <th style={cellStyle}>ID</th>
             <th style={cellStyle}>Username</th>
             <th style={cellStyle}>Email</th>
@@ -95,34 +78,25 @@ export default function Dashboard() {
   );
 }
 
-// Styling für Header
+// Stile
 const headerStyle = {
-  display: "grid",
-  gridTemplateColumns: "1fr auto",
+  display: "flex",
+  justifyContent: "space-between",
   alignItems: "center",
   marginBottom: "20px",
-};
-
-// Styling für Dashboard-Namen
-const nameContainerStyle = {
-  display: "flex",
-  alignItems: "center",
 };
 
 const dashboardNameStyle = {
   fontSize: "28px",
   fontWeight: "bold",
   margin: 0,
-  textTransform: "uppercase",
 };
 
-// Styling für den Button-Container
 const buttonContainerStyle = {
   display: "flex",
   gap: "10px",
 };
 
-// Styling für Buttons
 const buttonStyle = {
   padding: "10px 20px",
   fontSize: "14px",
@@ -134,8 +108,7 @@ const buttonStyle = {
   cursor: "pointer",
 };
 
-// Styling für Tabellenzellen
 const cellStyle = {
   padding: "10px",
-  border: "1px solid #ddd",
+  textAlign: "left",
 };
