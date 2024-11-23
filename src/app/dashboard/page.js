@@ -127,15 +127,17 @@ style.textContent = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #e0e0e0;
-    padding: 10px 20px;
-    border-bottom: 2px solid #ccc;
+    background-color: #007bff; /* Blau */
+    color: white; /* Weiße Schrift */
+    padding: 15px 25px; /* Mehr Padding für bessere Lesbarkeit */
+    border-bottom: 2px solid #004080; /* Dunklerer Blau-Ton für Abgrenzung */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Schatten für Tiefeneffekt */
   }
 
   .logo {
-    font-size: 24px;
+    font-size: 26px; /* Größerer Schriftzug für die Logo-Darstellung */
     font-weight: bold;
-    color: #007bff;
+    color: white; /* Weiße Schrift */
   }
 
   .nav-links button {
@@ -143,23 +145,36 @@ style.textContent = `
     border: none;
     font-size: 16px;
     font-weight: bold;
-    color: #007bff;
+    color: white; /* Weiße Schrift */
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 12px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Hover-Effekt */
+  }
+
+  .nav-links button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Transparenter Hover-Hintergrund */
   }
 
   .nav-icons span {
-    font-size: 18px;
-    color: #007bff;
+    font-size: 20px; /* Größere Icons */
+    color: white; /* Weiße Schrift */
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 20px;
+    transition: transform 0.3s ease; /* Skalierungseffekt beim Hover */
   }
 
+  .nav-icons span:hover {
+    transform: scale(1.2); /* Leichtes Vergrößern der Icons */
+  }
+  
   .dashboard-content h1 {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #333; /* Dunkler Text für besseren Kontrast */
   }
 
   .table-container {
