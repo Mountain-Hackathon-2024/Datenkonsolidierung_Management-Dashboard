@@ -14,12 +14,13 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("");
-
+    // prüfe cookies existiert
     // Dummy-Login-Daten
     if (email === "connector-api-demo@mews.com" && password === "connector-API-2024") {
       // Setze das Cookie für den Login-Zustand
+      
       Cookies.set("isLoggedIn", "true", { expires: 1 }); // Cookie läuft in 1 Tag ab
-
+      
       // Weiterleitung zum Dashboard
       router.push("/dashboard");
     } else {
